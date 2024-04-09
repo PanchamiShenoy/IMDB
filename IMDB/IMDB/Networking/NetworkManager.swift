@@ -143,7 +143,7 @@ class NetworkManager {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            if let error = error {
+            if error != nil {
                 completion(.failure(.invalidResponse))
             } else if let data = data {
                 do {
