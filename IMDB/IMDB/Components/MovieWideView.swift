@@ -10,6 +10,8 @@ import SwiftUI
 struct MovieWideView: View {
     // MARK: - Properties
     let movie: Movie
+    @Environment(\.colorScheme) var colorScheme
+
     
     // MARK: - Body
     var body: some View {
@@ -24,8 +26,8 @@ struct MovieWideView: View {
                     Spacer()
                     VStack(spacing: 20) {
                         Text(movie.title)
-                            .foregroundStyle(.black)
-                        .multilineTextAlignment(.leading)
+                            .foregroundStyle(colorScheme == .dark ? .white : .black)
+                        .multilineTextAlignment(.center)
                         RatingView(movieRating: movie.voteAverage)
                     }
                     Spacer()

@@ -10,6 +10,11 @@ import Foundation
 class NetworkManager {
     static var shared = NetworkManager()
     
+    /// Fetches movies based on the search query.
+        ///
+        /// - Parameters:
+        ///   - newText: The search query text.
+        ///   - completion: The completion block returning a result of type `MovieResponse` or `NetworkError`.
     func searchMovies(newText: String, completion: @escaping (Result<MovieResponse, NetworkError>) -> Void) {
         let headers = [
             "accept": "application/json",
@@ -47,8 +52,12 @@ class NetworkManager {
         }
         dataTask.resume()
     }
-
     
+    /// Adds a movie to favorites.
+       ///
+       /// - Parameters:
+       ///   - movieId: The ID of the movie to be added to favorites.
+       ///   - completion: The completion block returning a result indicating success or failure.
     func addToFavorites(movieId: Int, completion: @escaping (Result<Bool, NetworkError>)-> Void) {
         let headers = [
             "accept": "application/json",
@@ -90,6 +99,10 @@ class NetworkManager {
         }
     }
     
+    
+    /// Fetches favorite movies.
+    ///
+    /// - Parameter completion: The completion block returning a result of type `[Movie]` or `NetworkError`.
     func fetchFavoriteMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
         let headers = [
             "accept": "application/json",
@@ -128,6 +141,9 @@ class NetworkManager {
         task.resume()
     }
     
+    /// Fetches  popular  movies.
+    ///
+    /// - Parameter completion: The completion block returning a result of type `[Movie]` or `NetworkError`.
     func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
         
         let headers = [
