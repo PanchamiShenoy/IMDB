@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Movie Model
 
 /// Represents a movie.
-struct Movie: Hashable, Identifiable, Decodable {
+struct Movie: Hashable, Identifiable, Codable {
     let id: Int
     let title: String
     let overview: String
@@ -35,6 +35,6 @@ struct Movie: Hashable, Identifiable, Decodable {
 // MARK: - Movie Response Model
 
 /// Represents a response containing an array of movies.
-struct MovieResponse: Decodable {
+struct MovieResponse: Codable {
     let results: [Movie]
 }

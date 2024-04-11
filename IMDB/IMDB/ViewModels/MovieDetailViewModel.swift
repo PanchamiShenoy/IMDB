@@ -38,12 +38,14 @@ class MovieDetailViewModel: ObservableObject {
                     if success {
                         self.alertTitle = "Success!"
                         self.alertMessage = "Added to favorites"
-                    } 
+                        self.showAlert = true
+                    }
                 case .failure(let error):
                     self.alertTitle = "Error!"
                     self.alertMessage = "Failed to add to favorites: \(error.localizedDescription)"
+                    self.showAlert = true
                 }
-                self.showAlert = true
+               
             }
         }
     }

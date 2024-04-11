@@ -27,23 +27,22 @@ class FavoriteViewTests: XCTestCase {
     }
     
     func testToggleButton_tapTogglesIsRowViewSelected() {
-      // Given
-      //let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
-      let toggleButton = ToggleButton(viewModel: viewModel)
-    var view = toggleButton.body
+        //let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
+        let toggleButton = ToggleButton(viewModel: viewModel)
+        var view = toggleButton.body
         
         // Then
         XCTAssertNotNil(view)
-      let initialState = viewModel.isRowViewSelected
-
-      // When
-      toggleButton.tap()
-         view = toggleButton.body
+        let initialState = viewModel.isRowViewSelected
+        
+        // When
+        toggleButton.tap()
+        view = toggleButton.body
         XCTAssertNotNil(view)
-      // Then
-      XCTAssertNotEqual(viewModel.isRowViewSelected, initialState)
+        // Then
+        XCTAssertNotEqual(viewModel.isRowViewSelected, initialState)
     }
-
+    
     func testFavoriteView_BodyWithRowViewSelected() {
         // Given
         let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
@@ -73,19 +72,28 @@ class FavoriteViewTests: XCTestCase {
     }
     
     func testFavoriteView_fetchFavoriteMoviesFails() {
-      // Given
+        // Given
         mockNetworkManager.fetchFavoriteMoviesResult = .failure(.invalidResponse)
-      viewModel = FavoriteViewModel(networkManager: mockNetworkManager)
-
-      // When
-      viewModel.fetchFavoriteMovies()
-
-      // Then
-      // Assert error state or empty view based on your implementation
-      // For example, checking if an error message is displayed
+        viewModel = FavoriteViewModel(networkManager: mockNetworkManager)
+        
+        // When
+        viewModel.fetchFavoriteMovies()
+        
+        // Then
+        // Assert error state or empty view based on your implementation
+        // For example, checking if an error message is displayed
         XCTAssertEqual(viewModel.movies, []) // Replace with your error handling check
     }
-
+    func testMovieWideView() {
+        // Given
+        let movie = Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: "")
+        let movieWideView = MovieWideView(movie: movie)
+        
+        let view = movieWideView.body
+        
+        // Then
+        XCTAssertNotNil(view)
+    }
 }
 
 // Mock implementation of the ToggleButton to facilitate testing

@@ -265,36 +265,3 @@ final class IMDBTests: XCTestCase {
 
 
 }
-
-class MockNetworkManager: NetworkManagerProtocol {
-    
-    func fetchFavoriteMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
-        if let result = fetchFavoriteMoviesResult {
-            completion(result)
-        }
-    }
-    
-    func searchMovies(newText: String, completion: @escaping (Result<MovieResponse, NetworkError>) -> Void) {
-            if let result = searchMoviesResult {
-                completion(result)
-            }
-        }
-        
-        func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
-            if let result = fetchPopularMoviesResult {
-                completion(result)
-            }
-        }
-        
-        var searchMoviesResult: Result<MovieResponse, NetworkError>?
-        var fetchPopularMoviesResult: Result<[Movie], NetworkError>?
-    
-    var addToFavoritesResult: Result<Bool, NetworkError>?
-    var fetchFavoriteMoviesResult: Result<[Movie], NetworkError>?
-    
-    func addToFavorites(movieId: Int, completion: @escaping (Result<Bool, NetworkError>) -> Void) {
-        if let result = addToFavoritesResult {
-            completion(result)
-        }
-    }
-}

@@ -15,9 +15,7 @@ class MovieDetailViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
         mockNetworkManager = MockNetworkManager()
-        
         viewModel = MovieDetailViewModel(movie: Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 8.0, adult: false, releaseDate: "", backdropPath: ""), networkManager: mockNetworkManager)
     }
     
@@ -28,79 +26,88 @@ class MovieDetailViewModelTests: XCTestCase {
     }
     
     func testAddToFavoritesSuccess() {
-        // Set up expectation
         let expectation = XCTestExpectation(description: "Add to favorites success")
         
-        // Set up the mock response
         mockNetworkManager.addToFavoritesResult = .success(true)
-        
-        // Call the method to be tested
         viewModel.addToFavorites()
         
-        // Wait for the expectation to be fulfilled
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Adjust delay time as needed
-            // Check if the alert is shown
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Success!")
             XCTAssertEqual(self.viewModel.alertMessage, "Added to favorites")
             
-            // Fulfill expectation
             expectation.fulfill()
         }
-        
-        // Wait for the expectation to be fulfilled
         wait(for: [expectation], timeout: 1.0)
     }
     
     
     func testAddToFavoritesFailure() {
-        // Set up expectation
         let expectation = XCTestExpectation(description: "Add to favorites failure")
         
-        // Set up the mock response to return a failure result
         mockNetworkManager.addToFavoritesResult = .failure(.requestFailed(NSError(domain: "MockError", code: 500, userInfo: nil)))
         
-        // Call the method to be tested
         viewModel.addToFavorites()
         
-        // Wait for the expectation to be fulfilled
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Adjust delay time as needed
-            // Check if the alert is shown
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Error!")
             
-            // Fulfill expectation
             expectation.fulfill()
         }
         
-        // Wait for the expectation to be fulfilled
         wait(for: [expectation], timeout: 1.0)
     }
-
+    
     func testAddToFavoritesInvalidStatusCode() {
-        // Set up expectation
         let expectation = XCTestExpectation(description: "Add to favorites invalid status code")
         
-        // Set up the mock response to return an invalid status code error
         mockNetworkManager.addToFavoritesResult = .failure(.invalidStatusCode(401))
         
-        // Call the method to be tested
         viewModel.addToFavorites()
         
-        // Wait for the expectation to be fulfilled
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            // Check if the alert is shown
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Error!")
             
-            // Fulfill expectation
             expectation.fulfill()
         }
         
-        // Wait for the expectation to be fulfilled
         wait(for: [expectation], timeout: 1.0)
     }
     
     
     
+}
+class MockNetworkManager: NetworkManagerProtocol {
+    
+    func fetchFavoriteMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
+        if let result = fetchFavoriteMoviesResult {
+            completion(result)
+        }
+    }
+    
+    func searchMovies(newText: String, completion: @escaping (Result<MovieResponse, NetworkError>) -> Void) {
+        if let result = searchMoviesResult {
+            completion(result)
+        }
+    }
+    
+    func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
+        if let result = fetchPopularMoviesResult {
+            completion(result)
+        }
+    }
+    
+    var searchMoviesResult: Result<MovieResponse, NetworkError>?
+    var fetchPopularMoviesResult: Result<[Movie], NetworkError>?
+    
+    var addToFavoritesResult: Result<Bool, NetworkError>?
+    var fetchFavoriteMoviesResult: Result<[Movie], NetworkError>?
+    
+    func addToFavorites(movieId: Int, completion: @escaping (Result<Bool, NetworkError>) -> Void) {
+        if let result = addToFavoritesResult {
+            completion(result)
+        }
+    }
 }
