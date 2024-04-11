@@ -15,7 +15,7 @@ struct MovieWideView: View {
     
     // MARK: - Body
     var body: some View {
-        NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(movie: movie))) {
+        NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(movie: movie, networkManager: NetworkManager.shared))) {
             VStack (spacing:0){
                 HStack(alignment: .center, spacing: 0) {
                     AsyncImageView(movie: movie)

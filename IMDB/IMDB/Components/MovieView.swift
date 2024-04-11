@@ -13,7 +13,7 @@ struct MovieView: View {
     
     // MARK: - Body
     var body: some View {
-        NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(movie: movie))
+        NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(movie: movie, networkManager: NetworkManager.shared))
             .toolbarRole(.editor)) {
                 VStack {
                     AsyncImageView(movie: movie)

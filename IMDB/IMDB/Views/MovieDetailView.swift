@@ -154,5 +154,5 @@ struct DetailList: View {
 
 
 #Preview {
-    MovieDetailView(viewModel:  MovieDetailViewModel(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: "")))
+    MovieDetailView(viewModel:  MovieDetailViewModel(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""), networkManager: NetworkManager.shared))
 }

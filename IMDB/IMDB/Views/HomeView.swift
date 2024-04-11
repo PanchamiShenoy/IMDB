@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+    @StateObject var viewModel = HomeViewModel(networkManager: NetworkManager.shared)
     
     var body: some View {
         NavigationView {

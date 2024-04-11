@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FavoriteView: View {
     // MARK: - Properties
-    @StateObject var viewModel = FavoriteViewModel()
+    @StateObject var viewModel = FavoriteViewModel(networkManager: NetworkManager.shared)
     
     // MARK: - Body
     var body: some View {

@@ -6,8 +6,14 @@
 //
 
 import Foundation
+protocol NetworkManagerProtocol {
+    func searchMovies(newText: String, completion: @escaping (Result<MovieResponse, NetworkError>) -> Void)
+    func addToFavorites(movieId: Int, completion: @escaping (Result<Bool, NetworkError>) -> Void)
+    func fetchFavoriteMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void)
+    func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void)
+}
 
-class NetworkManager {
+class NetworkManager: NetworkManagerProtocol  {
     static var shared = NetworkManager()
     
     /// Fetches movies based on the search query.
@@ -124,17 +130,12 @@ class NetworkManager {
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 do {
                     let decoder = JSONDecoder()
                     let decodedData = try decoder.decode(MovieResponse.self, from: data)
                     completion(.success(decodedData.results))
                 } catch {
                     completion(.failure(.decodingError(error)))
-                }
-            } else {
-                let httpResponse = response as? HTTPURLResponse
-                completion(.failure(.invalidStatusCode(httpResponse?.statusCode ?? 0)))
             }
         }
         

@@ -13,13 +13,20 @@ class HomeViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var movies: [Movie] = []
     @Published var latestMovies: [Movie] = []
+    private let networkManager: NetworkManagerProtocol
+    
+    // MARK: - Initialization
+    
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
+    }
     
     // MARK: - Methods
     
     /// Fetches movies matching the search query from the network.
     /// - Parameter newText: The text to search for.
     func searchMovie(newText: String) {
-        NetworkManager.shared.searchMovies(newText: newText) { result in
+        networkManager.searchMovies(newText: newText) { result in
             switch result {
             case .success(let movieResponse):
                 DispatchQueue.main.async {
@@ -34,7 +41,7 @@ class HomeViewModel: ObservableObject {
     }
 
     func fetchPopularMovies(){
-        NetworkManager.shared.fetchPopularMovies(completion: { result in
+        networkManager.fetchPopularMovies(completion: { result in
             switch result {
             case .success(let movies):
                 DispatchQueue.main.async {

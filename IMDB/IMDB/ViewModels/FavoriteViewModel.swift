@@ -1,10 +1,3 @@
-//
-//  FavoriteViewModel.swift
-//  IMDB
-//
-//  Created by Panchami Shenoy on 4/7/24.
-//
-
 import Foundation
 
 /// ViewModel responsible for managing favorite movies.
@@ -14,6 +7,13 @@ class FavoriteViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isRowViewSelected = false
     @Published var movies: [Movie] = []
+    private let networkManager: NetworkManagerProtocol
+    
+    // MARK: - Initialization
+    
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
+    }
     
     // MARK: - Methods
     
@@ -30,7 +30,7 @@ class FavoriteViewModel: ObservableObject {
     
     /// Fetch favorite movies from API
     func fetchFavoriteMovies() {
-        NetworkManager.shared.fetchFavoriteMovies { result in
+        networkManager.fetchFavoriteMovies { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let movies):
