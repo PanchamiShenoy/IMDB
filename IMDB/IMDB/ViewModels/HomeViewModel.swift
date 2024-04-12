@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var movies: [Movie] = []
     @Published var latestMovies: [Movie] = []
+    var page = 1
     private let networkManager: NetworkManagerProtocol
     
     // MARK: - Initialization
@@ -41,11 +42,12 @@ class HomeViewModel: ObservableObject {
     }
 
     func fetchPopularMovies(){
-        networkManager.fetchPopularMovies(completion: { result in
+        networkManager.fetchPopularMovies(page: page, completion: { result in
             switch result {
             case .success(let movies):
                 DispatchQueue.main.async {
-                    self.latestMovies = movies
+                    self.latestMovies.append(contentsOf: movies)
+                    self.page = self.page + 1
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

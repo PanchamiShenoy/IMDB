@@ -25,7 +25,7 @@ struct FavoriteView: View {
         .onAppear {
             viewModel.fetchFavoriteMovies()
         }
-        .navigationTitle("Favorites")
+        .navigationTitle(FavoriteViewStrings.navTitle)
     }
     
 }
@@ -42,7 +42,7 @@ struct ToggleButton: View {
         }) {
             HStack {
                 Spacer()
-                Image(systemName: viewModel.isRowViewSelected ?  "rectangle.grid.2x2.fill":  "rectangle.grid.1x2.fill")
+                Image(systemName: viewModel.isRowViewSelected ?  FavoriteViewStrings.rectangle2x2:  FavoriteViewStrings.rectangle1x2)
                     .foregroundStyle(Color.yellow)
             }
             .padding(.trailing)
@@ -51,7 +51,7 @@ struct ToggleButton: View {
     }
 }
 
-// MARK: - Preview
-#Preview {
-    FavoriteView()
-}
+//// MARK: - Preview
+//#Preview {
+//    FavoriteView()
+//}

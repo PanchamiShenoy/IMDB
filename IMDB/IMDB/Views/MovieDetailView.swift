@@ -47,13 +47,13 @@ struct PhotoAndDescription: View {
     @ObservedObject var viewModel: MovieDetailViewModel
     var body: some View {
         VStack(spacing: 0) {
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(viewModel.movie.backdropPath ?? "")")) { image in
+            AsyncImage(url: URL(string: "\(MovieDetailViewStrings.url)\(viewModel.movie.backdropPath ?? "")")) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         }
                     placeholder: {
-                        Image("poster_not_available")
+                        Image(MovieDetailViewStrings.postUnavailable)
                     }
                     .frame(width: UIScreen.main.bounds.width > 414 ? (UIScreen.main.bounds.width  - 80): (UIScreen.main.bounds.width  - 20), height: UIScreen.main.bounds.width > 414 ? 250: 180)
             Text(viewModel.movie.overview)
@@ -79,11 +79,11 @@ struct AddToFavoriteButton: View {
                     .cornerRadius(5)
                     .foregroundColor(Color.yellow)
                 HStack(spacing: 20){
-                    Image(systemName: "plus")
+                    Image(systemName: MovieDetailViewStrings.plus)
                         .foregroundStyle(Color.black)
                         .font(.title3)
                         .padding(.leading, 20)
-                    Text("Add to Favorites")
+                    Text(MovieDetailViewStrings.addToFav)
                         .foregroundColor(.black)
                         .font(.title3)
                     Spacer()
@@ -101,7 +101,7 @@ struct CalendarView: View {
 
     var body: some View {
         VStack(spacing: 5) {
-            Image(systemName: "calendar")
+            Image(systemName: MovieDetailViewStrings.calendar)
                 .foregroundStyle(.yellow)
                 .font(.title3)
             Text(releaseYear)
@@ -152,7 +152,7 @@ struct DetailList: View {
     }
 }
 
-
-#Preview {
-    MovieDetailView(viewModel:  MovieDetailViewModel(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""), networkManager: NetworkManager.shared))
-}
+//
+//#Preview {
+//    MovieDetailView(viewModel:  MovieDetailViewModel(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""), networkManager: NetworkManager.shared))
+//}

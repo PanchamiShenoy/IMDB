@@ -27,11 +27,13 @@ class MovieDetailViewModelTests: XCTestCase {
     
     func testAddToFavoritesSuccess() {
         let expectation = XCTestExpectation(description: "Add to favorites success")
-        
+        // Set up the mock response
         mockNetworkManager.addToFavoritesResult = .success(true)
+        // Call the method to be tested
         viewModel.addToFavorites()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Adjust delay time as needed
+        // Wait for the expectation to be fulfilled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Success!")
             XCTAssertEqual(self.viewModel.alertMessage, "Added to favorites")
@@ -44,12 +46,13 @@ class MovieDetailViewModelTests: XCTestCase {
     
     func testAddToFavoritesFailure() {
         let expectation = XCTestExpectation(description: "Add to favorites failure")
-        
+        // Set up the mock response to return a failure result
         mockNetworkManager.addToFavoritesResult = .failure(.requestFailed(NSError(domain: "MockError", code: 500, userInfo: nil)))
-        
+        // Call the method to be tested
         viewModel.addToFavorites()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Adjust delay time as needed
+        // Wait for the expectation to be fulfilled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Error!")
             
@@ -61,12 +64,13 @@ class MovieDetailViewModelTests: XCTestCase {
     
     func testAddToFavoritesInvalidStatusCode() {
         let expectation = XCTestExpectation(description: "Add to favorites invalid status code")
-        
+        // Set up the mock response to return a failure result
         mockNetworkManager.addToFavoritesResult = .failure(.invalidStatusCode(401))
-        
+        // Call the method to be tested
         viewModel.addToFavorites()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        // Wait for the expectation to be fulfilled
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.viewModel.showAlert)
             XCTAssertEqual(self.viewModel.alertTitle, "Error!")
             
@@ -93,7 +97,7 @@ class MockNetworkManager: NetworkManagerProtocol {
         }
     }
     
-    func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
+    func fetchPopularMovies(page:Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
         if let result = fetchPopularMoviesResult {
             completion(result)
         }

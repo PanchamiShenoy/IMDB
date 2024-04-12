@@ -14,7 +14,7 @@ struct RatingView: View {
     // MARK: - Body
     var body: some View {
         VStack(spacing: 5) {
-            Image(systemName: "star.fill")
+            Image(systemName: RatingViewStrings.star)
                 .foregroundStyle(.yellow)
                 .font(.title3)
             Text(String(format: "%.1f/10", movieRating))
@@ -23,7 +23,7 @@ struct RatingView: View {
     }
 }
 
-// MARK: - Preview
-#Preview {
-    RatingView()
-}
+//// MARK: - Preview
+//#Preview {
+//    RatingView()
+//}

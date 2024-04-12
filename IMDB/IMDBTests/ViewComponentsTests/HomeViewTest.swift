@@ -12,18 +12,21 @@ class HomeViewTests: XCTestCase {
     var viewModel: HomeViewModel!
     var mockNetworkManager: MockNetworkManager!
     
+    // Setting up initial conditions for each test case
     override func setUp() {
         super.setUp()
         mockNetworkManager = MockNetworkManager()
         viewModel = HomeViewModel(networkManager: mockNetworkManager)
     }
     
+    // Resetting to default after each test case
     override func tearDown() {
         viewModel = nil
         mockNetworkManager = nil
         super.tearDown()
     }
     
+    // Testing the search functionality when search text changes
     func testSearchMovie_whenSearchTextChanges() {
         let searchText = "test"
         let expectedMovieResponse = MovieResponse(results: [Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: "")])
@@ -43,6 +46,7 @@ class HomeViewTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
     
+    // Testing fetching popular movies when the view appears
     func testFetchPopularMovies_onAppear() {
         let expectation = XCTestExpectation(description: "Search movie completion")
         

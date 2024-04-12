@@ -25,7 +25,7 @@ struct MovieView: View {
     }
 }
 
-// MARK: - Preview
-#Preview {
-    MovieView(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""))
-}
+//// MARK: - Preview
+//#Preview {
+//    MovieView(movie: Movie(id: 1, title: "movie", overview: "description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""))
+//}

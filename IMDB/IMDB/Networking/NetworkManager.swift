@@ -10,7 +10,7 @@ protocol NetworkManagerProtocol {
     func searchMovies(newText: String, completion: @escaping (Result<MovieResponse, NetworkError>) -> Void)
     func addToFavorites(movieId: Int, completion: @escaping (Result<Bool, NetworkError>) -> Void)
     func fetchFavoriteMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void)
-    func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void)
+    func fetchPopularMovies(page:Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void)
 }
 
 class NetworkManager: NetworkManagerProtocol  {
@@ -145,14 +145,14 @@ class NetworkManager: NetworkManagerProtocol  {
     /// Fetches  popular  movies.
     ///
     /// - Parameter completion: The completion block returning a result of type `[Movie]` or `NetworkError`.
-    func fetchPopularMovies(completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
+    func fetchPopularMovies(page: Int, completion: @escaping (Result<[Movie], NetworkError>) -> Void) {
         
         let headers = [
             "accept": "application/json",
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjc0ZTRiZmQzODQ5YTllYTkzMzM2NGMyZjU0OGYwYiIsInN1YiI6IjY2MTJjMDllMTk2OTBjMDE0OWEzMTVkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OUzLXGiijCmQIiiHHHmayj9-eWzAswIZsdW1Dk5u0sY"
         ]
         
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1")! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=\(page)")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"

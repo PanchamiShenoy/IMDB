@@ -5,6 +5,7 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
+            ScrollView {
             VStack(alignment: .leading) {
                 if viewModel.searchText.isEmpty {
                     LatestMoviesView(viewModel: viewModel)
@@ -19,6 +20,18 @@ struct HomeView: View {
             .onAppear() {
                 viewModel.fetchPopularMovies()
             }
+                Button(action: viewModel.fetchPopularMovies, label: {
+                    ZStack {
+                        Rectangle().frame(width: 130, height: 50).foregroundStyle(Color.yellow)
+                            .cornerRadius(8)
+                        Text(HomeViewStrings.loadButton)
+                            .foregroundStyle(.black)
+                            .font(.title3)
+                    }
+                })
+                .padding(.bottom, UIScreen.main.bounds.height > 700 ? 0: 30)
+        }
+          
         }
         .accentColor(.yellow)
     }
@@ -29,26 +42,26 @@ struct LatestMoviesView: View {
     // MARK: - Properties
     @ObservedObject var viewModel: HomeViewModel
     var body: some View {
-        Text("Latest Movies")
+        Text(HomeViewStrings.latestMovies)
             .font(.title)
             .multilineTextAlignment(.leading)
             .padding(.leading, 20)
         
         GridView(movies: viewModel.latestMovies)
-            .navigationTitle("IMDB Search")
+            .navigationTitle(HomeViewStrings.navTitle)
             .navigationBarItems(trailing:
                                     NavigationLink {
                 FavoriteView()
                     .toolbarRole(.editor)
             } label: {
-                Image(systemName: "heart.fill")
+                Image(systemName: HomeViewStrings.heart)
                     .foregroundStyle(Color.yellow)
             })
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

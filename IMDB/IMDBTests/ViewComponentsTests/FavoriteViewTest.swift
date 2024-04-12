@@ -12,6 +12,7 @@ class FavoriteViewTests: XCTestCase {
     var viewModel: FavoriteViewModel!
     var mockNetworkManager: MockNetworkManager!
     
+    // Setting up initial conditions for each test case
     override func setUp() {
         super.setUp()
         
@@ -20,83 +21,72 @@ class FavoriteViewTests: XCTestCase {
         viewModel = FavoriteViewModel(networkManager: mockNetworkManager)
     }
     
+    // Resetting to default after each test case
     override func tearDown() {
         viewModel = nil
         mockNetworkManager = nil
         super.tearDown()
     }
     
+    // Testing if tapping the toggle button toggles the isRowViewSelected property
     func testToggleButton_tapTogglesIsRowViewSelected() {
-        //let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
         let toggleButton = ToggleButton(viewModel: viewModel)
         var view = toggleButton.body
         
-        // Then
         XCTAssertNotNil(view)
         let initialState = viewModel.isRowViewSelected
         
-        // When
         toggleButton.tap()
         view = toggleButton.body
         XCTAssertNotNil(view)
-        // Then
         XCTAssertNotEqual(viewModel.isRowViewSelected, initialState)
     }
     
+    // Testing the body of the FavoriteView when row view is selected
     func testFavoriteView_BodyWithRowViewSelected() {
-        // Given
         let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
         viewModel.isRowViewSelected = true
         let favoriteView = FavoriteView(viewModel: viewModel)
         
-        // When
         let view = favoriteView.body
         
-        // Then
-        XCTAssertNotNil(view) // Assert the body is not nil
-        // Add more assertions if needed based on your specific UI implementation
+        XCTAssertNotNil(view)
     }
     
+    // Testing the body of the FavoriteView when row view is not selected
     func testFavoriteView_BodyWithRowViewNotSelected() {
-        // Given
         let viewModel = FavoriteViewModel(networkManager: MockNetworkManager())
         viewModel.isRowViewSelected = false
         let favoriteView = FavoriteView(viewModel: viewModel)
         
-        // When
         let view = favoriteView.body
         
-        // Then
-        XCTAssertNotNil(view) // Assert the body is not nil
-        // Add more assertions if needed based on your specific UI implementation
+        XCTAssertNotNil(view)
     }
     
+    // Testing the scenario when fetching favorite movies fails
     func testFavoriteView_fetchFavoriteMoviesFails() {
-        // Given
         mockNetworkManager.fetchFavoriteMoviesResult = .failure(.invalidResponse)
         viewModel = FavoriteViewModel(networkManager: mockNetworkManager)
         
-        // When
         viewModel.fetchFavoriteMovies()
         
-        // Then
         // Assert error state or empty view based on your implementation
         // For example, checking if an error message is displayed
         XCTAssertEqual(viewModel.movies, []) // Replace with your error handling check
     }
+    
+    // Testing the body of the MovieWideView
     func testMovieWideView() {
-        // Given
         let movie = Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: "")
         let movieWideView = MovieWideView(movie: movie)
         
         let view = movieWideView.body
         
-        // Then
         XCTAssertNotNil(view)
     }
 }
 
-// Mock implementation of the ToggleButton to facilitate testing
 // Mock implementation of the ToggleButton to facilitate testing
 extension ToggleButton {
     func tap() {
@@ -104,4 +94,3 @@ extension ToggleButton {
         viewModel.isRowViewSelected.toggle()
     }
 }
-

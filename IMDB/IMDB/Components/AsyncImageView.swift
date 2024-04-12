@@ -7,26 +7,12 @@
 
 import SwiftUI
 
-class ImageCache {
-    static let shared = ImageCache()
-    
-    private var cache = NSCache<NSString, UIImage>()
-    
-    func getImage(for url: URL) -> UIImage? {
-        return cache.object(forKey: url.absoluteString as NSString)
-    }
-    
-    func setImage(_ image: UIImage, for url: URL) {
-        cache.setObject(image, forKey: url.absoluteString as NSString)
-    }
-}
-
 struct AsyncImageView: View {
     let movie: Movie
     
     var body: some View {
         if let posterPath = movie.posterPath,
-           let posterURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)") {
+           let posterURL = URL(string: "\(AysncImageStrings.url)\(posterPath)") {
             if let cachedImage = ImageCache.shared.getImage(for: posterURL) {
                 
                 Image(uiImage: cachedImage)
@@ -46,14 +32,14 @@ struct AsyncImageView: View {
                             ImageCache.shared.setImage(uiImage ?? UIImage(), for: posterURL)
                         }
                 } placeholder: {
-                    Image("poster_not_available")
+                    Image(AysncImageStrings.postUnavailable)
                         .resizable()
                         .scaledToFill()
                         .cornerRadius(8)
                 }
             }
         } else {
-            Image("poster_not_available")
+            Image(AysncImageStrings.postUnavailable)
                 .resizable()
                 .scaledToFill()
                 .cornerRadius(8)
@@ -61,11 +47,11 @@ struct AsyncImageView: View {
     }
 }
 
-struct AsyncImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        AsyncImageView(movie: Movie(id: 1, title: "Movie", overview: "Description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""))
-    }
-}
+//struct AsyncImageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AsyncImageView(movie: Movie(id: 1, title: "Movie", overview: "Description", posterPath: "", voteAverage: 9.08, adult: true, releaseDate: "", backdropPath: ""))
+//    }
+//}
 
 extension Image {
     @MainActor

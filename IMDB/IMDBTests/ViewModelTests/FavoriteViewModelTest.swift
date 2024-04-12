@@ -30,8 +30,10 @@ class FavoriteViewModelTests: XCTestCase {
     func testFetchFavoriteMoviesFailure() {
         // Set up the mock response to return a failure result
         mockNetworkManager.fetchFavoriteMoviesResult = .failure(.invalidResponse)
+        
         // Call the method to be tested
         viewModel.fetchFavoriteMovies()
+        
         XCTAssertTrue(viewModel.movies.isEmpty)
     }
     
@@ -43,6 +45,7 @@ class FavoriteViewModelTests: XCTestCase {
         // Set up the mock response for `fetchFavoriteMovies` method
         mockNetworkManager.fetchFavoriteMoviesResult = .success(movies)
         viewModel.movies = []
+        
         // Call the method to be tested
         viewModel.isRowViewSelected = true
         viewModel.fetchFavoriteMovies()
@@ -51,7 +54,7 @@ class FavoriteViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.isRowViewSelected)
         
         // Wait for the expectation to be fulfilled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // Check if movies are populated
             XCTAssertEqual(self.viewModel.movies.count, 2)
             XCTAssertEqual(self.viewModel.movies[0].title, "Movie 1")
@@ -64,7 +67,7 @@ class FavoriteViewModelTests: XCTestCase {
         let filteredMovies = viewModel.filteredItems(for: viewModel.searchText)
         
         // Verify the filtered movies array
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertEqual(filteredMovies.count, 1)
             XCTAssertEqual(filteredMovies.first?.title, "Movie 1")
         }
@@ -74,7 +77,7 @@ class FavoriteViewModelTests: XCTestCase {
         viewModel.movies = viewModel.filteredItems(for: viewModel.searchText)
         
         // Verify the filtered movies array
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
             XCTAssertEqual(viewModel.movies.count, 2)
         }
     }

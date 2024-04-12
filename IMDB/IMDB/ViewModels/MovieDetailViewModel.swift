@@ -36,13 +36,13 @@ class MovieDetailViewModel: ObservableObject {
                 switch result {
                 case .success(let success):
                     if success {
-                        self.alertTitle = "Success!"
-                        self.alertMessage = "Added to favorites"
+                        self.alertTitle = AlertViewStrings.success
+                        self.alertMessage = AlertViewStrings.addToFav
                         self.showAlert = true
                     }
                 case .failure(let error):
-                    self.alertTitle = "Error!"
-                    self.alertMessage = "Failed to add to favorites: \(error.localizedDescription)"
+                    self.alertTitle = AlertViewStrings.error
+                    self.alertMessage = "\(AlertViewStrings.failedMessage) \(error.localizedDescription)"
                     self.showAlert = true
                 }
                

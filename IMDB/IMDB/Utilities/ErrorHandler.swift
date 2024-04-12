@@ -22,15 +22,15 @@ class ErrorHandler {
     func handleError(_ error: NetworkError) {
         switch error {
         case .invalidURL:
-            print("Invalid URL")
+            print(ErrorHandlStrings.invalidURL)
         case .requestFailed(let underlyingError):
-            print("Request failed: \(underlyingError.localizedDescription)")
+            print("\(ErrorHandlStrings.requestFailed) \(underlyingError.localizedDescription)")
         case .invalidResponse:
-            print("Invalid response from the server")
+            print(ErrorHandlStrings.invalidResponse)
         case .invalidStatusCode(let statusCode):
-            print("Invalid status code: \(statusCode)")
+            print("\(ErrorHandlStrings.InvalidStatudCode)\(statusCode)")
         case .decodingError(let decodingError):
-            print("Decoding error: \(decodingError.localizedDescription)")
+            print("\(ErrorHandlStrings.InvalidStatudCode) \(decodingError.localizedDescription)")
         }
     }
 }

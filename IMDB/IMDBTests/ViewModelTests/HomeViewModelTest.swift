@@ -30,11 +30,12 @@ class HomeViewModelTests: XCTestCase {
         // Set up the mock response
         let mockMovieResponse = MovieResponse(results: [Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 8.0, adult: false, releaseDate: "", backdropPath: "")])
         mockNetworkManager.searchMoviesResult = .success(mockMovieResponse)
+        
         // Call the method to be tested
         viewModel.searchMovie(newText: "Test")
         
         // Wait for the expectation to be fulfilled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // Check if movies are populated
             XCTAssertEqual(self.viewModel.movies.count, 1)
             XCTAssertEqual(self.viewModel.movies[0].title, "Test Movie")
@@ -48,11 +49,12 @@ class HomeViewModelTests: XCTestCase {
         let mockMovies = [Movie(id: 1, title: "Movie 1", overview: "", posterPath: "", voteAverage: 7.5, adult: false, releaseDate: "", backdropPath: ""),
                           Movie(id: 2, title: "Movie 2", overview: "", posterPath: "", voteAverage: 8.0, adult: false, releaseDate: "", backdropPath: "")]
         mockNetworkManager.fetchPopularMoviesResult = .success(mockMovies)
+        
         // Call the method to be tested
         viewModel.fetchPopularMovies()
         
         // Wait for the expectation to be fulfilled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // Check if latest movies are populated
             XCTAssertEqual(self.viewModel.latestMovies.count, 2)
             XCTAssertEqual(self.viewModel.latestMovies[0].title, "Movie 1")
@@ -70,8 +72,7 @@ class HomeViewModelTests: XCTestCase {
         viewModel.searchMovie(newText: "Test")
         
         // Wait for the expectation to be fulfilled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            // Check if movies are empty
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssertTrue(self.viewModel.movies.isEmpty)
             
         }
@@ -86,7 +87,7 @@ class HomeViewModelTests: XCTestCase {
         viewModel.fetchPopularMovies()
         
         // Wait for the expectation to be fulfilled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // Check if latest movies are empty
             XCTAssertTrue(self.viewModel.latestMovies.isEmpty)
             

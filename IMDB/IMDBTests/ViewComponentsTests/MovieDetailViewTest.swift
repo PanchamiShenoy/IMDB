@@ -4,7 +4,6 @@
 //
 //  Created by Panchami Shenoy on 4/10/24.
 //
-
 import XCTest
 @testable import IMDB
 import SwiftUI
@@ -14,6 +13,7 @@ class MovieDetailViewTests: XCTestCase {
     var mockNetworkManager: MockNetworkManager!
     var movie: Movie!
     
+    // Setting up initial conditions for each test case
     override func setUp() {
         super.setUp()
         mockNetworkManager = MockNetworkManager()
@@ -21,12 +21,14 @@ class MovieDetailViewTests: XCTestCase {
         viewModel = MovieDetailViewModel(movie: movie, networkManager: mockNetworkManager)
     }
     
+    // Resetting to default after each test case
     override func tearDown() {
         viewModel = nil
         movie = nil
         super.tearDown()
     }
     
+    // Testing the body of the MovieDetailView
     func testFavoriteView_BodyWithRowViewSelected() {
         let favoriteView = MovieDetailView(viewModel: self.viewModel)
         
@@ -35,6 +37,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertNotNil(view)
     }
     
+    // Testing if the view model is initialized correctly
     func testViewModelInitializedCorrectly() {
         let expectedTitle = "Test Movie"
         let expectedOverview = "Test Overview"
@@ -43,6 +46,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertEqual(viewModel.movie.overview, expectedOverview, "ViewModel should be initialized with correct movie overview")
     }
     
+    // Testing the addToFavorites function in the view model
     func testAddToFavorites() {
         let expectation = XCTestExpectation(description: "Add to favorites")
         
@@ -60,6 +64,7 @@ class MovieDetailViewTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
+    // Testing the Title view
     func testTitleView() {
         let viewModel = MovieDetailViewModel(movie: Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: ""), networkManager: NetworkManager.shared)
         
@@ -68,6 +73,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertNotNil(titleView.body)
     }
     
+    // Testing the PhotoAndDescription view
     func testPhotoAndDescriptionView() {
         let viewModel = MovieDetailViewModel(movie: Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: ""), networkManager: NetworkManager.shared)
         
@@ -76,6 +82,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertNotNil(photoAndDescriptionView.body)
     }
     
+    // Testing the AddToFavoriteButton action
     func testAddToFavoriteButtonAction() {
         let viewModel = MovieDetailViewModel(movie: Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: ""), networkManager: NetworkManager.shared)
         let addToFavoriteButton = AddToFavoriteButton(viewModel: viewModel)
@@ -83,6 +90,7 @@ class MovieDetailViewTests: XCTestCase {
     }
     
     
+    // Testing the CalendarView
     func testCalendarView() {
         let releaseYear = "2024"
         let calendarView = CalendarView(releaseYear: releaseYear)
@@ -91,6 +99,7 @@ class MovieDetailViewTests: XCTestCase {
         
     }
     
+    // Testing the IsAdultView
     func testIsAdultView() {
         let isAdult = true
         let isAdultView = IsAdultView(isAdult: isAdult)
@@ -98,6 +107,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertNotNil(isAdultView.body)
     }
     
+    // Testing the DetailList view
     func testDetailList() {
         let movie = Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: "")
         let viewModel = MovieDetailViewModel(movie: movie, networkManager: NetworkManager.shared)
@@ -106,6 +116,7 @@ class MovieDetailViewTests: XCTestCase {
         XCTAssertNotNil(detailListView.body)
     }
     
+    // Testing the RatingView
     func testRatingView() {
         let movie = Movie(id: 1, title: "Test Movie", overview: "Test Overview", posterPath: "", voteAverage: 9.0, adult: false, releaseDate: "2024-04-10", backdropPath: "")
         let view = RatingView(movieRating: movie.voteAverage)
