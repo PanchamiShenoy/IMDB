@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MovieDetailView: View {
+    // MARK: - Properties
     @StateObject var viewModel: MovieDetailViewModel
     
+    // MARK: - Body
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -31,7 +33,8 @@ struct MovieDetailView: View {
     }
 }
 
-
+// MARK: - Component
+// MARK: - Properties
 struct Title: View {
     @ObservedObject var viewModel: MovieDetailViewModel
     var body: some View {
@@ -43,7 +46,9 @@ struct Title: View {
     }
 }
 
+// MARK: - Component
 struct PhotoAndDescription: View {
+    // MARK: - Properties
     @ObservedObject var viewModel: MovieDetailViewModel
     var body: some View {
         VStack(spacing: 0) {
@@ -67,7 +72,9 @@ struct PhotoAndDescription: View {
     }
 }
 
+// MARK: - Component
 struct AddToFavoriteButton: View {
+    // MARK: - Properties
     @ObservedObject var viewModel: MovieDetailViewModel
     var body: some View {
         Button(action: {
@@ -96,7 +103,9 @@ struct AddToFavoriteButton: View {
     }
 }
 
+// MARK: - Component
 struct CalendarView: View {
+    // MARK: - Properties
     let releaseYear: String
 
     var body: some View {
@@ -110,7 +119,9 @@ struct CalendarView: View {
     }
 }
 
+// MARK: - Component
 struct IsAdultView: View {
+    // MARK: - Properties
     let isAdult: Bool
 
     var body: some View {
@@ -125,7 +136,9 @@ struct IsAdultView: View {
     }
 }
 
+// MARK: - Component
 struct DetailList: View {
+    // MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: MovieDetailViewModel
 

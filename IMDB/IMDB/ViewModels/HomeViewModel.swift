@@ -41,6 +41,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
+    /// Fetches popular movies from the network.
     func fetchPopularMovies(){
         networkManager.fetchPopularMovies(page: page, completion: { result in
             switch result {

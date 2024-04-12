@@ -30,6 +30,7 @@ class MovieDetailViewModel: ObservableObject {
     
     // MARK: - Methods
     
+    /// add movies to fav in the network
     func addToFavorites() {
         networkManager.addToFavorites(movieId: movie.id) { result in
             DispatchQueue.main.async {

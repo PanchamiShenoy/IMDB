@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - Properties
     @StateObject var viewModel = HomeViewModel(networkManager: NetworkManager.shared)
     
+    // MARK: - Body
     var body: some View {
         NavigationView {
             ScrollView {
@@ -41,6 +43,8 @@ struct HomeView: View {
 struct LatestMoviesView: View {
     // MARK: - Properties
     @ObservedObject var viewModel: HomeViewModel
+    
+    // MARK: - Body
     var body: some View {
         Text(HomeViewStrings.latestMovies)
             .font(.title)
